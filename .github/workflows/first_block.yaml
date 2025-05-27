@@ -13,7 +13,7 @@ jobs:
             - name: print bye
               run: |
                 echo "Byee"
-                exit 1
+                exit 0
             - name: print goodbyee
               run: echo "goodbyee"
 
