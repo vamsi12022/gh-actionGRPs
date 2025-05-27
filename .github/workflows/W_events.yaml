@@ -1,10 +1,5 @@
 name: workflow events usages
-on: 
-    push:
-    pull_request:
-    schedule:
-        - cron: '*/1 * * * *'
-    workflow_dispatch:
+on: push
 
 jobs:
     push_job:
