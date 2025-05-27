@@ -17,3 +17,11 @@ jobs:
               run: |
                 echo "job os test"
                 echo "$RUNNER_OS"
+    mac_runner:
+        runs-on: mac-latest
+        steps:
+            - name: echo mac os
+              #shell: bash
+              run: |
+                echo "job os test"
+                echo "$RUNNER_OS"
