@@ -7,7 +7,7 @@ jobs:
         steps:
             - name: print uname
               run: uname -a
-    seconf_job:
+    second_job:
         runs-on: ubuntu-latest
         steps:
             - name: print bye
