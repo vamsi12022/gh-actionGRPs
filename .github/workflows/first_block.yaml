@@ -1,0 +1,19 @@
+name: First workflow
+on: push
+
+jobs:
+    first_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print uname
+              run: uname -a
+    seconf_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print bye
+              run: |
+                echo "Byee"
+                exit 1
+            - name: print goodbyee
+              run: echo "goodbyee"
+
