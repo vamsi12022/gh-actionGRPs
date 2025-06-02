@@ -30,4 +30,4 @@ jobs:
                 echo "${{ env.date }}"
             - name: var contexts
               run: |
-                echo "${{ var.TEST }}"
+                echo "${{ vars.TEST }}"
