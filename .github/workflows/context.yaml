@@ -1,5 +1,5 @@
 name: context usage
-run-name: contect usage - ${{github.event_name}},${{inputs.option}}
+run-name: contect usage - ${{inputs.option}}
 
 on:
     push:
