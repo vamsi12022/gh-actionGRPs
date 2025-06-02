@@ -1,0 +1,15 @@
+name: Event test case
+on:
+    pull_request:
+        types:
+            - opened
+            - synchronize
+        branches:
+            - main
+
+jobs:
+    first_test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: first test
+              run: echo "test completed"
