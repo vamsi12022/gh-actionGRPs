@@ -1,0 +1,24 @@
+name: EXp test
+on:
+    push:
+    workflow_dispatch:
+        inputs:
+            option:
+                type: boolean
+                default: false
+
+jobs:
+    exp_test: 
+        runs-on: ubuntu-latest
+        steps:
+            - name: "[Option] test"
+              if: ${{ inputs.option }}
+              run: |
+                echo "${{github.event_name}}"
+            - name: "one more test"
+              if: ${{inputs.option}}
+              run: |
+                echo "$((2+3))"
+            - name: "end"
+              run: echo "Byee"
+
