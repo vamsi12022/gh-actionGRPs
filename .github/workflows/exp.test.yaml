@@ -1,4 +1,5 @@
 name: EXp test
+run-name: contect usage - ${{inputs.option && 'ON' || 'OFF'}}
 on:
     push:
     workflow_dispatch:
