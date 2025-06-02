@@ -1,0 +1,14 @@
+name: Event test case
+on:
+    pull_request:
+        types:
+            - closed
+        branches:
+            - main
+
+jobs:
+    first_test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: second test
+              run: echo "second test completed"
