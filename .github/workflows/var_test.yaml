@@ -8,13 +8,12 @@ on:
                 type: boolean
                 default: false
 env:
-    os: ubuntu-latest
     test: "workflow"
     over: "testing workflow"
     undefined: ${{ vars.undefined || 'default value' }}
 jobs:
     var_env:
-        runs-on: $os
+        runs-on: ubuntu-latest
         env:
             test1: "job"
             over: "testing jobs"
@@ -42,7 +41,7 @@ jobs:
             - name: "test over value"
               run: echo "${{env.over}}"
     new_git_var:
-        runs-on: $os
+        runs-on: ubuntu-latest
         environment: prod
         steps:
             - name: "prod var test"
@@ -51,7 +50,7 @@ jobs:
                 echo "${{vars.PROD_VAR}}"
                 echo "${{vars.REPO_VAR}}"
     new_git:
-        runs-on: $os
+        runs-on: ubuntu-latest
         environment: staging
         steps:
             - name: "prod var test"
@@ -59,13 +58,13 @@ jobs:
                 echo "${{vars.staging_var}}"
                 echo "${{vars.REPO_VAR}}"   
     non_check:
-        runs-on: $os
+        runs-on: ubuntu-latest
         steps:
             - name: "non testing"
               run: |
                 echo "${{env.undefined}}"
     test_func:
-        runs-on: $os
+        runs-on: ubuntu-latest
         steps:
             - name: "Test exists"
               run: exit 1
