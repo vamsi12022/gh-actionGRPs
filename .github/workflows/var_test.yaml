@@ -5,6 +5,7 @@ on:
 env:
     test: "workflow"
     over: "testing workflow"
+    undefined: ${{ vars.undefined || 'default value' }}
 jobs:
     var_env:
         runs-on: ubuntu-latest
@@ -22,4 +23,27 @@ jobs:
                 echo "${{ env.over }} level"
             - name: "test over value"
               run: echo "${{env.over}}"
+    new_git_var:
+        runs-on: ubuntu-latest
+        environment: prod
+        steps:
+            - name: "prod var test"
+              run: |
+                echo "${{vars.prod_test}}"
+                echo "${{vars.PROD_VAR}}"
+                echo "${{vars.REPO_VAR}}"
+    new_git:
+        runs-on: ubuntu-latest
+        environment: staging
+        steps:
+            - name: "prod var test"
+              run: |
+                echo "${{vars.staging_var}}"
+                echo "${{vars.REPO_VAR}}"   
+    non_check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "non testing"
+              run: |
+                echo "${{env.undefined}}"
 
