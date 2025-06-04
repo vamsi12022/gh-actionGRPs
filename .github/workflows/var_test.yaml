@@ -1,18 +1,36 @@
-name: var test 
+name: var test
+run-name: "Testing new ${{ inputs.option && 'ON' || 'OFF' }}"
 on:
-    push:
+    pull_request:
     workflow_dispatch:
+        inputs:
+            option:
+                type: boolean
+                default: false
 env:
+    os: ubuntu-latest
     test: "workflow"
     over: "testing workflow"
     undefined: ${{ vars.undefined || 'default value' }}
 jobs:
     var_env:
-        runs-on: ubuntu-latest
+        runs-on: $os
         env:
             test1: "job"
             over: "testing jobs"
         steps:
+            - name: "sleep test"
+              run: sleep 10
+            - name: "Pr name check"
+              run: echo "${{github.event.pull_request.title}}"
+            - name: "fun test"
+              run:
+                cat << EOF
+                ${{toJson(github.event.pull_request.title)}}
+                EOF
+            - name: "checks"
+              if: ${{! cancelled() && contains(github.event.pull_request.title,'fix')}}
+              run: echo "fix check"
             - name: "test for env and var"
               env:
                    test2: "step"
@@ -24,7 +42,7 @@ jobs:
             - name: "test over value"
               run: echo "${{env.over}}"
     new_git_var:
-        runs-on: ubuntu-latest
+        runs-on: $os
         environment: prod
         steps:
             - name: "prod var test"
@@ -33,7 +51,7 @@ jobs:
                 echo "${{vars.PROD_VAR}}"
                 echo "${{vars.REPO_VAR}}"
     new_git:
-        runs-on: ubuntu-latest
+        runs-on: $os
         environment: staging
         steps:
             - name: "prod var test"
@@ -41,9 +59,26 @@ jobs:
                 echo "${{vars.staging_var}}"
                 echo "${{vars.REPO_VAR}}"   
     non_check:
-        runs-on: ubuntu-latest
+        runs-on: $os
         steps:
             - name: "non testing"
               run: |
                 echo "${{env.undefined}}"
+    test_func:
+        runs-on: $os
+        steps:
+            - name: "Test exists"
+              run: exit 1
+            - name: "status check"
+              if: ${{ success() }}
+              run: echo "last status is success"
+            - name: "checks"
+              if: ${{ failure() }}
+              run: echo "last status is failure"
+            - name: "more checks"
+              if: ${{ !cancelled() }}
+              run: echo "last not cancelled"
+            - name: "last check"
+              if: ${{ cancelled() }}
+              run: echo "cancelled"
 
