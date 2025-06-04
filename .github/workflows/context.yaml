@@ -1,0 +1,38 @@
+name: context usage
+run-name: contect usage - ${{inputs.option}}
+
+on:
+   #push:
+    workflow_dispatch:
+        inputs:
+            option:
+                type: boolean
+                default: false
+env:
+    name: sathish
+    date: 02.06.2025
+
+jobs:
+    context_test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: github contexts
+              run: |
+                echo "${{ github.event_name }}"
+                echo "${{ github.sha }}"
+                echo "${{ github.ref }}"
+                echo "${{ github.actor }}"
+                echo "${{ github.run_id }}"
+                echo "${{ github.action_repository }}"
+            - name: env contexts
+              run: |
+                echo "${{ env.name }}"
+                echo "${{ env.date }}"
+            - name: var contexts
+              run: |
+                echo "${{ vars.TEST }}"
+    prod-check:
+        if: ${{ github.ref == 'refs/heads/main' }}
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "Deploying to production server on branch $GITHUB_REF"

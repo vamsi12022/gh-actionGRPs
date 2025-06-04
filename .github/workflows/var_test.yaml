@@ -1,0 +1,83 @@
+name: var test
+run-name: "Testing new ${{ inputs.option && 'ON' || 'OFF' }}"
+on:
+    pull_request:
+    workflow_dispatch:
+        inputs:
+            option:
+                type: boolean
+                default: false
+env:
+    test: "workflow"
+    over: "testing workflow"
+    undefined: ${{ vars.undefined || 'default value' }}
+jobs:
+    var_env:
+        runs-on: ubuntu-latest
+        env:
+            test1: "job"
+            over: "testing jobs"
+        steps:
+            - name: "sleep test"
+              run: sleep 10
+            - name: "Pr name check"
+              run: echo "${{github.event.pull_request.title}}"
+            - name: "fun test"
+              run: |
+                cat << EOF
+                ${{toJson(github.event.pull_request.labels)}}
+                EOF
+            - name: "checks"
+              if: ${{! cancelled() && contains(github.event.pull_request.title,'fix')}}
+              run: echo "fix check"
+            - name: "test for env and var"
+              env:
+                   test2: "step"
+              run: |
+                echo "${{ env.test }} level"
+                echo "${{ env.test1 }} level"
+                echo "${{ env.test2 }} level"
+                echo "${{ env.over }} level"
+            - name: "test over value"
+              run: echo "${{env.over}}"
+    new_git_var:
+        runs-on: ubuntu-latest
+        environment: prod
+        steps:
+            - name: "prod var test"
+              run: |
+                echo "${{vars.prod_test}}"
+                echo "${{vars.PROD_VAR}}"
+                echo "${{vars.REPO_VAR}}"
+    new_git:
+        runs-on: ubuntu-latest
+        environment: staging
+        steps:
+            - name: "prod var test"
+              run: |
+                echo "${{vars.staging_var}}"
+                echo "${{vars.REPO_VAR}}"   
+    non_check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "non testing"
+              run: |
+                echo "${{env.undefined}}"
+    test_func:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "Test exists"
+              run: exit 1
+            - name: "status check"
+              if: ${{ success() }}
+              run: echo "last status is success"
+            - name: "checks"
+              if: ${{ failure() }}
+              run: echo "last status is failure"
+            - name: "more checks"
+              if: ${{ !cancelled() }}
+              run: echo "last not cancelled"
+            - name: "last check"
+              if: ${{ cancelled() }}
+              run: echo "cancelled"
+
