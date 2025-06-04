@@ -2,7 +2,7 @@ name: context usage
 run-name: contect usage - ${{inputs.option}}
 
 on:
-    push:
+   #push:
     workflow_dispatch:
         inputs:
             option:
