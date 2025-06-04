@@ -1,0 +1,33 @@
+name: input test
+on:
+    workflow_dispatch:
+        inputs:
+            test_run:
+                type: boolean
+                description: skipping deploy
+                default: true
+            target:
+                type: environment
+                required: true
+            tag:
+                type: choice
+                options:
+                    - v1
+                    - v2
+                default: v2
+                description: release build
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Build
+              run: echo "build from tag ${{ inputs.tag }}"
+    deploy:
+        runs-on: ubuntu-latest
+        if: ${{ inputs.test_run }}
+        environment: ${{inputs.target}}
+        steps:
+            - name: Deploy
+              run: echo "Deployed to ${{ inputs.target }}"
+
+
