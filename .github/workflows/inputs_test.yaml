@@ -26,6 +26,7 @@ jobs:
         runs-on: ubuntu-latest
         if: ${{ inputs.test_run }}
         environment: ${{inputs.target}}
+        needs: test
         steps:
             - name: Deploy
               run: echo "Deployed to ${{ inputs.target }}"
