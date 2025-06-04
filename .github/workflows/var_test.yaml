@@ -1,0 +1,25 @@
+name: var test 
+on:
+    push:
+    workflow_dispatch:
+env:
+    test: "workflow"
+    over: "testing workflow"
+jobs:
+    var_env:
+        runs-on: ubuntu-latest
+        env:
+            test1: "job"
+            over: "testing jobs"
+        steps:
+            - name: "test for env and var"
+              env:
+                   test2: "step"
+              run: |
+                echo "${{ env.test }} level"
+                echo "${{ env.test1 }} level"
+                echo "${{ env.test2 }} level"
+                echo "${{ env.over }} level"
+            - name: "test over value"
+              run: echo "${{env.over}}"
+
