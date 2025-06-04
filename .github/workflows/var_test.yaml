@@ -25,7 +25,7 @@ jobs:
             - name: "fun test"
               run: |
                 cat << EOF
-                ${{ toJson(github.event.pull_request.labels)}}
+                ${{ toJson( github.event.pull_request.labels) }}
                 EOF
             - name: "checks"
               if: ${{! cancelled() && contains(github.event.pull_request.title,'fix')}}
