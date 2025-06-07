@@ -14,11 +14,12 @@ jobs:
     output_job:
         runs-on: ubuntu-latest
         outputs:
-            name: ${{ steps.test1.outputs.Name }}
+            name: ${{ steps.test1.outputs.status }}
         steps:
             - name: print GITHUB_OUTPUT value
               run: echo "$GITHUB_OUTPUT"
-            - id: test1
+            - name: test1
+              id: test1
               run: echo "status=${{inputs.test}}" >> "$GITHUB_OUTPUT"
     one_more:
         runs-on: ubuntu-latest
@@ -27,6 +28,4 @@ jobs:
         steps:
             - name: refer output job
               run: echo "Byee - ${{needs.output_job.outputs.name}}"
-
-
 
