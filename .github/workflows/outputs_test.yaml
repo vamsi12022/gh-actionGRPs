@@ -24,7 +24,7 @@ jobs:
                 echo "status=${{inputs.test}}" >> "$GITHUB_OUTPUT"
                 echo "$GITHUB_OUTPUT"
                 echo "f1=one" >> "$GITHUB_OUTPUT"
-                echo "Mistake=true" > "$GITHUB_OUTPUT"
+                echo "Mistake=true" >> "$GITHUB_OUTPUT"
                 cat "$GITHUB_OUTPUT"
     one_more:
         runs-on: ubuntu-latest
