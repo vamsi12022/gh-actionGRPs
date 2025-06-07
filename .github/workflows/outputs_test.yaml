@@ -34,5 +34,5 @@ jobs:
             - name: refer output job
               run: |
                 echo "Byee - ${{needs.output_job.outputs.name}}"
-                echo "Output"
+                echo "Output.."
 
