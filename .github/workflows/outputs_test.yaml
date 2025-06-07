@@ -1,5 +1,6 @@
 name: test outputs
 on: 
+    push:
     workflow_dispatch:
         inputs: 
             test: 
@@ -21,3 +22,6 @@ jobs:
         steps:
             - name: refer output job
               run: echo "Byee - ${{needs.output_job.outputs.name}}"
+
+
+
