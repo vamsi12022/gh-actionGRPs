@@ -14,7 +14,7 @@ jobs:
     output_job:
         runs-on: ubuntu-latest
         outputs:
-            name: ${{ steps.test1.outputs.status || steps.test1.outcome.Mistake }}
+            name: ${{ steps.test1.outputs.status }}
         steps:
             - name: print GITHUB_OUTPUT value
               run: echo "$GITHUB_OUTPUT"
