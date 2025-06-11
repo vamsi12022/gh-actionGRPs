@@ -7,12 +7,11 @@ jobs:
     build:
         runs-on: ubuntu-latest
         defaults:
-            run:
-                working-directory: ${{ env.work-dir }}
-
+          run:
+            working-directory: ${{ env.work-dir }}
         steps:
             - uses: actions/checkout@v4
-            - name : setup node and nom deps
+            - name: setup node and nom deps
               uses: ./.github/actions/composite-cache-deps
               with:
                 node-version: 20.x
