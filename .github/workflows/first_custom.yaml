@@ -12,7 +12,7 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - name: setup node and nom deps
-              uses: ./actions/composite-cache-deps
+              uses: ./.github/actions/composite-cache-deps
               with:
                 node-version: 20.x
                 working-dr: ${{ env.work-dir }}
